@@ -1,0 +1,30 @@
+5
+A 20 true
+B 15 false
+C 15 false
+D 25 true
+E 5 true
+
+
+3 5
+A 12 true
+B 3 false
+C 12 false
+D 9 true
+E 3 true
+
+10 5
+A 10 true
+B 10 false
+C 10 false
+D 15 true
+E 10 true
+
+
+
+100  
+
+        300 450
+100 -> 0
+150 -> 50    0
+200 -> 100   0
