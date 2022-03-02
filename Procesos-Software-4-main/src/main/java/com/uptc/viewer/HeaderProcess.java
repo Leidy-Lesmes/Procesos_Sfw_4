@@ -1,5 +1,6 @@
 package com.uptc.viewer;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -8,9 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
-import java.awt.BorderLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -22,21 +21,20 @@ public class HeaderProcess extends JPanel  {
 	private static final long serialVersionUID = 1L;
 	
 	private JTextField processTime, nameProcess,  namePartition, sizePartition,processSize;
-	private JLabel tittle, lProcessTime, lNameProcess, lProcessSize, lPartitionName, lSizePartition, selectedPartition;
+	private JLabel tittle, lProcessTime, lNameProcess, lProcessSize, lPartitionName, lSizePartition;
 	private JPanel tittlePanel, dataProcess, labelsData, partitionPanel, headerTittle, southPanel; 
 	private JButton saveButton, savePartitionButton;
 	private TablePartition tablePartition;
 	private int numProcess;
 	private int numPartition;
 	private ArrayList<String> partitionArray;
-	private JComboBox <String> itemsPartition;
 	private ActionListener actionListener;
 
 	public HeaderProcess(ActionListener actionListener) {
 		super();
 		this.tittlePanel = new JPanel();
 		new JPanel();
-		this.actionListener = actionListener;
+		this.setActionListener(actionListener);
 		this.headerTittle = new JPanel();
 		this.dataProcess = new JPanel();
 		this.partitionPanel = new JPanel();
@@ -49,6 +47,14 @@ public class HeaderProcess extends JPanel  {
 		numPartition=0;
 	}
 	
+	public ActionListener getActionListener() {
+		return actionListener;
+	}
+
+	public void setActionListener(ActionListener actionListener) {
+		this.actionListener = actionListener;
+	}
+
 	private void initComponents(ActionListener actionListener) {	
 		this.setLayout(new BorderLayout());
 
