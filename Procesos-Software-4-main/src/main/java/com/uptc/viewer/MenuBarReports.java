@@ -32,7 +32,7 @@ public class MenuBarReports extends JMenuBar {
 		executeButton = new JButton();
 		executeButton.addActionListener(actionListener);
 		executeButton.setActionCommand(Commands.C_EXECUTE_PROCESS.toString());
-		this.add(Utilities.button(executeButton, new Dimension(100, 30), "Execute"));
+		this.add(Utilities.button(executeButton, new Dimension(100, 30), "Ejecutar"));
 		
 		report = new JMenu(Constants.TOP_PANEL_MENU_PRINCIPAL_REPORT);
 		report.setFont(Constants.FONT_MENUBAR);
@@ -86,6 +86,6 @@ public class MenuBarReports extends JMenuBar {
 		closeApppButton = new JButton();
 		closeApppButton.addActionListener(actionListener);
 		closeApppButton.setActionCommand(Commands.C_CLOSE_APP.toString());
-		this.add(Utilities.button(closeApppButton, new Dimension(100, 30), "Close"));
+		this.add(Utilities.button(closeApppButton, new Dimension(100, 30), "Cerrar"));
 	}
 }

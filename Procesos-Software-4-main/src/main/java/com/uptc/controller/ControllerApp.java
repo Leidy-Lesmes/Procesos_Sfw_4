@@ -11,6 +11,7 @@ import com.uptc.models.Process;
 import com.uptc.reports.Report;
 import com.uptc.viewer.Constants;
 import com.uptc.viewer.JFramePrincipal;
+import com.uptc.viewer.ProcessToPartition;
 import com.uptc.viewer.reports.ReportDialog;
 
 public class ControllerApp implements ActionListener {
@@ -19,6 +20,7 @@ public class ControllerApp implements ActionListener {
 	Report reportClass;
 	String [] headersReports;
 	ReportDialog reportTable;
+	ProcessToPartition processToPartition;
 
 	public ControllerApp() {
 		executeProcess = new ExecuteProcess();
@@ -35,9 +37,15 @@ public class ControllerApp implements ActionListener {
 			break;
 		case C_ADD_PARTITION:
 			// agregar proceso a la tabla de procesos
+			
 			addPartitionTable(this);
+			
 			//jPrincipal.addPartitionIncComboBox();
 			//jPrincipal.changeStatusJtextfield();
+			break;
+
+		case C_ADD_PROCESS_TO_PARTICION:
+			jPrincipal.processToPartitionVisibility(true, processToPartition);
 			break;
 
 		case C_EXECUTE_PROCESS:
@@ -106,10 +114,13 @@ public class ControllerApp implements ActionListener {
 			jPrincipal.reportTableVisibility(true,reportTable);
 			break;
 
-		case C_CLOSE_DIALOG:
+		case C_CLOSE_DIALOG_REPORT:
 			reportTable.setVisible(false);
 			break;
 
+		case C_CLOSE_DIALOG_ADD_PROCESS:
+			jPrincipal.processToPartitionVisibility(false, processToPartition);
+			break;
 		default:
 
 			break;
@@ -118,8 +129,6 @@ public class ControllerApp implements ActionListener {
 		deleteProcess(Integer.valueOf(e.getActionCommand()));
 	}
 	}
-
-
 
 	private void addPartitionTable(ControllerApp controllerApp) {
 		jPrincipal.setInformationPartitionTable(controllerApp);
@@ -131,9 +140,9 @@ public class ControllerApp implements ActionListener {
 
 	public void execute() {
 		// set lista de procesos
-		executeListProcess(jPrincipal.getProcessInformation());
+		executeListProcess(jPrincipal.getProcessInformationProcess());
 		// set lista de particion
-		addPartitionList(jPrincipal.getPartitionInformation());
+		addPartitionList(jPrincipal.getProcessInformationPartition());
 
 	}
 

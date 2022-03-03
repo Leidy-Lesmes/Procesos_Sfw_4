@@ -12,6 +12,7 @@ public class Constants {
 	public static final Font FONT_TITTLE = new Font("Agency FB", Font.BOLD, 30);
 	public static final Color COLOR_TITTLE_PANEL = Color.decode("#FFDCB3");
 	public static final Color COLOR_SET_DATA_PANEL = Color.decode("#CBD7FA");
+	public static final Font FONT_FIELDS_DATA =  new Font("arial", Font.ITALIC, 15);
 	
 	public static final String TITTLE_APP = "PROCESOS";
 	public static final String LOGO_APP = "images/iconApp.png";
@@ -32,7 +33,7 @@ public class Constants {
 	public static final String [] headersR6 = {"Tiempo Inicial","Tiempo Final", "Proceso", "Prioridad"};
 	public static final String [] headersR7 = {"Transacciones entre estados"};
 	public static final String [] headersR8 = {"Proceso","Conectado con"};
-	public static final String [] headersPartition = {"Nombre","Tamaño", "Eliminar"};
+	public static final String [] headersPartition = {"Nombre Particion","Tamaño", "Agregar procesos"};
 	
 	public static final String [] PRICIPAL_HEADERS = {"Nombre del proceso", "Tiempo del proceso","Tamaño del proceso", "Eliminar" };
 

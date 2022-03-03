@@ -18,6 +18,8 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 
+import com.uptc.controller.Commands;
+
 
 public class TablePartition extends JPanel {
 
@@ -29,7 +31,7 @@ public class TablePartition extends JPanel {
 	private ArrayList<Object[]> listPartition;
    
 
-	public TablePartition  (String[] headers) {
+	public TablePartition (String[] headers) {
 		this.headers = headers;
 		initComponents();
 	}
@@ -148,24 +150,26 @@ public class TablePartition extends JPanel {
 		return infoPartition;
 	}
 
+	
+
 	public void cleanRowsTable() {
 		//dtmElements.setNumRows(0);
 		this.remove(jsTable);
 	}
 
 	public JButton createButton(ActionListener actionListener,String id) {
-		JButton deletteButton = new JButton("Eliminar");
-		deletteButton.addActionListener(actionListener);
-		deletteButton.setActionCommand(id);
-		System.out.println("Accion boton"+deletteButton.getActionCommand());
-		deletteButton.setBackground(Color.decode("#DF3A01"));
-		deletteButton.setForeground(Color.WHITE);
-		deletteButton.setHorizontalAlignment(JLabel.CENTER);
-		deletteButton.setVisible(true);
-		return deletteButton;
+		JButton createButton = new JButton("Crear Procesos");
+		createButton.addActionListener(actionListener);
+		createButton.setActionCommand(Commands.C_ADD_PROCESS_TO_PARTICION.toString());
+		createButton.setBackground(Color.decode("#DF3A01"));
+		createButton.setForeground(Color.WHITE);
+		createButton.setHorizontalAlignment(JLabel.CENTER);
+		createButton.setVisible(true);
+		return createButton;
 	}
 
-	public void deletePartition(int id,ActionListener actionListener) {
+
+	public void deletePartition(int id, ActionListener actionListener) {
 		listPartition= new ArrayList<>();
 		int rowInitial=dtmElements.getRowCount()+1;
 		for (int i = 0; i < rowInitial; i++) {
@@ -193,5 +197,4 @@ public class TablePartition extends JPanel {
 			addElementUniqueToTable(listPartition.get(i), actionListener);
 		}
 	}
-    
 }

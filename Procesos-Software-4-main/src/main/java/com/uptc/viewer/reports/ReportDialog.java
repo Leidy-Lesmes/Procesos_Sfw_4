@@ -100,7 +100,7 @@ public class ReportDialog extends JDialog {
 		southPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		closeButton = new JButton();
 		closeButton.addActionListener(actionListener);
-		closeButton.setActionCommand(Commands.C_CLOSE_DIALOG.toString());
+		closeButton.setActionCommand(Commands.C_CLOSE_DIALOG_REPORT.toString());
 		southPanel.add(Utilities.button(closeButton, new Dimension(100, 30), "Cerrar"));
 		southPanel.setVisible(true);
 		return southPanel;

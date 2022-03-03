@@ -136,12 +136,11 @@ public class JTableData extends JPanel {
 	public ArrayList<Object[]> getProcessInformation() {
 		ArrayList<Object[]> infoProcess = new ArrayList<>();
 		for (int i = 0; i < dtmElements.getRowCount(); i++) {
-			Object[] row = new Object[5];
+			Object[] row = new Object[4];
 			row[0] = dtmElements.getValueAt(i, 0);
 			row[1] = dtmElements.getValueAt(i, 1);
 			row[2] = dtmElements.getValueAt(i, 2);
 			row[3] = dtmElements.getValueAt(i, 3);
-			row[4] = dtmElements.getValueAt(i, 4);
 			infoProcess.add(row);	
 		}
 		return infoProcess;
@@ -173,12 +172,11 @@ public class JTableData extends JPanel {
 				dtmElements.removeRow(i);
 		      }
 			else {
-				Object[] row = new Object[5];
+				Object[] row = new Object[4];
 				row[0] = dtmElements.getValueAt(i, 0);
 				row[1] = dtmElements.getValueAt(i, 1);
 				row[2] = dtmElements.getValueAt(i, 2);
 				row[3] = dtmElements.getValueAt(i, 3);
-				row[4] = dtmElements.getValueAt(i, 4);
 				listProcess.add(row);
 			  }  
 	        }

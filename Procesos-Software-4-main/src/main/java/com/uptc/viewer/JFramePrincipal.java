@@ -1,6 +1,5 @@
 package com.uptc.viewer;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionListener;
@@ -8,6 +7,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -20,11 +20,11 @@ public class JFramePrincipal extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private JPanel jPanelPrincipal;
-	private HeaderProcess headerProcess;
+	private HeaderPartition headerPartition;
 	private JTableData centerTable;
+	private TablePartition tablePartition;
 	private MenuBarReports menuBarr;
-
-
+	private ProcessToPartition processToPartition;
 
 	public JFramePrincipal(ActionListener actionListener, String [] headers) {
 		super(Constants.TITTLE_APP);
@@ -35,9 +35,11 @@ public class JFramePrincipal extends JFrame {
 		this.setIconImage(icon);
 		this.setUndecorated(true);
 		this.jPanelPrincipal = new JPanel();
-		this.headerProcess = new HeaderProcess(actionListener);
+		this.headerPartition = new HeaderPartition(actionListener);
+		this.tablePartition = new TablePartition(Constants.headersPartition);
 		this.centerTable = new JTableData(Constants.PRICIPAL_HEADERS);
 		this.menuBarr = new MenuBarReports(actionListener);
+		this.processToPartition = new ProcessToPartition(this, actionListener);
 		this.initComponents(actionListener);
 		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		this.addWindowsListenerOption();
@@ -46,18 +48,19 @@ public class JFramePrincipal extends JFrame {
 
 	private void initComponents(ActionListener actionListener) {
 		jPanelPrincipal.setBackground(Color.WHITE);
-		jPanelPrincipal.setLayout(new BorderLayout());
-		jPanelPrincipal.add(headerProcess, BorderLayout.NORTH);
-
-		jPanelPrincipal.add(centerTable, BorderLayout.CENTER);
-
-		jPanelPrincipal.add(menuBarr, BorderLayout.SOUTH);
+		jPanelPrincipal.setLayout(new BoxLayout(jPanelPrincipal, BoxLayout.Y_AXIS));
+		jPanelPrincipal.add(headerPartition);
+		jPanelPrincipal.add(menuBarr);
 
 		this.add(jPanelPrincipal);
 	}
 
-	public void cleanRowsTable() {
+	public void cleanRowsTableProcess() {
 		centerTable.cleanRowsTable();
+	}
+
+	public void cleanRowsTablePartition() {
+		tablePartition.cleanRowsTable();
 	}
 
 	private void addWindowsListenerOption() {
@@ -75,29 +78,40 @@ public class JFramePrincipal extends JFrame {
 			System.exit(0);
 	}
 
-	public ArrayList<Object[]> getProcessInformation() {
+	public ArrayList<Object[]> getProcessInformationProcess() {
 		return centerTable.getProcessInformation( );
 	}
 
-	public void addElementToTablePrincipalTable(ActionListener actionListener ) {
-		centerTable.addElementToTable(getProcessInformation());
+	public ArrayList<Object[]> getProcessInformationPartition() {
+		return tablePartition.getPartitionInformation();
+	}
+
+	public void addElementToTablePrincipalTableProcess(ActionListener actionListener ) {
+		centerTable.addElementToTable(getProcessInformationProcess());
+	}
+
+	public void addElementToTablePrincipalTablePartition(ActionListener actionListener ) {
+		tablePartition.addElementToTable(getProcessInformationPartition());
 	}
 
 	public void setInformationProcessTable(ActionListener actionListener) {
-	if(checkName(getProcessInformation())){
-		headerProcess.incrementId();
-		Object[] data ={headerProcess.getId(),headerProcess.getNameProcess(), headerProcess.getProcessTime(),
-				headerProcess.getSizeProcess()};
+	if(checkNameProcess(getProcessInformationProcess())){
+		processToPartition.incrementIdProcess();
+		Object[] data ={processToPartition.getNameProcess(), processToPartition.getProcessTime(),
+				processToPartition.getSizeProcess(), } ;
 		centerTable.addElementUniqueToTable(data, actionListener);
 		} else {
 			JOptionPane.showMessageDialog(this, "Nombre de proceso ya existente");
 		}
 	}
 
-	private boolean checkName(ArrayList<Object[]> information) {
+	
+
+
+	private boolean checkNameProcess(ArrayList<Object[]> information) {
         for (int i = 0; i < information.size(); i++) {
 			Object[] data= information.get(i);
-			if(data[0].equals(headerProcess.getNameProcess())) {
+			if(data[0].equals(processToPartition.getNameProcess())) {
 				return false;
 			}
 		}
@@ -108,35 +122,37 @@ public class JFramePrincipal extends JFrame {
 		table.setVisible(visibility);
 	}
 
+	public void processToPartitionVisibility(boolean visibility,ProcessToPartition table) {
+		processToPartition.setVisible(visibility);
+	}
+
     public void deleteProcess(int id,ActionListener actionListener) {
 		centerTable.deleteProcess(id,actionListener);
     }
 
-    public ArrayList<Object[]> getPartitionInformation() {
-        return headerProcess.getPartitionInformation();
+	public void deletePartition(int id,ActionListener actionListener) {
+		tablePartition.deletePartition(id,actionListener);
     }
 
-	public void addPartitionIncComboBox(){
-		headerProcess.addPartitionInComboBox();
-	}
-	/*public void changeStatusJtextfield(){
-		headerProcess.changeStatusJtextfield();
-	}*/
+    public ArrayList<Object[]> getPartitionInformation() {
+        return headerPartition.getPartitionInformation();
+    }
+
 
 	public void setInformationPartitionTable(ActionListener actionListener) {
 		if(checkNamePartition(getPartitionInformation())){
-			headerProcess.incrementIdPartition();
-			Object[] data ={headerProcess.getIdPartition(),headerProcess.getNamePartition(),headerProcess.getSizePartition()};
-			headerProcess.addElementUniqueToTable(data, actionListener);
-			} else {
-				JOptionPane.showMessageDialog(this, "Nombre de particion ya existente");
-			}
+			headerPartition.incrementId();
+			Object[] data ={headerPartition.getId(),headerPartition.getNamePartition(), headerPartition.getSizePartition()};
+			tablePartition.addElementUniqueToTable(data, actionListener);
+		} else {
+				JOptionPane.showMessageDialog(this, "Nombre de proceso ya existente");
+		}
 	}
 	
 	private boolean checkNamePartition(ArrayList<Object[]> information) {
         for (int i = 0; i < information.size(); i++) {
 			Object[] data= information.get(i);
-			if(data[0].equals(headerProcess.getNamePartition())) {
+			if(data[0].equals(headerPartition.getNamePartition())) {
 				return false;
 			}
 		}
