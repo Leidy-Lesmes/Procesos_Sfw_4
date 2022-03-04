@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.EventObject;
 
+import javax.swing.Action;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -160,8 +161,8 @@ public class TablePartition extends JPanel {
 		createButton.setName(id);
 		createButton.addActionListener(actionListener);
 		Commands.C_ADD_PROCESS_TO_PARTICION.setName(id);
-		System.out.println("nombre asignado"+Commands.C_ADD_PROCESS_TO_PARTICION.getName());
-		createButton.setActionCommand(Commands.C_ADD_PROCESS_TO_PARTICION.toString());
+		//System.out.println("nombre asignado"+Commands.C_ADD_PROCESS_TO_PARTICION.getName());
+		createButton.setActionCommand(""+id);
 		createButton.setBackground(Color.decode("#DF3A01"));
 		createButton.setForeground(Color.WHITE);
 		createButton.setHorizontalAlignment(JLabel.CENTER);

@@ -47,13 +47,12 @@ public class ControllerApp implements ActionListener {
 
 		case C_ADD_PROCESS_TO_PARTICION:
 			System.out.println("agregar procesos particion");
-			jPrincipal.processToPartitionVisibility(true, processToPartition);
+			//jPrincipal.processToPartitionVisibility(true, processToPartition);
 			break;
 
 		case C_SAVE_PROCESS_PARTITION:
 			System.out.println("agregar procesos particion");
-			System.out.println("PARTICION"+Commands.C_ADD_PROCESS_TO_PARTICION.getName());
-            executeListProcess(jPrincipal.getProcessInformationProcess(),Commands.C_ADD_PROCESS_TO_PARTICION.getName());
+            executeListProcess(jPrincipal.getProcessInformationProcess(),jPrincipal.getNamePartition());
 			break;
 			
 
@@ -136,15 +135,15 @@ public class ControllerApp implements ActionListener {
 			break;
 
 		case C_CLOSE_DIALOG_ADD_PROCESS:
-			jPrincipal.processToPartitionVisibility(false, processToPartition);
+			jPrincipal.processToPartitionVisibilityFalse(false);
 			break;
 		default:
 
 			break;
 		}
 	}catch (Exception ex) {
-		System.out.println("Boton eliminar");
-		deleteProcess(Integer.valueOf(e.getActionCommand()));
+		System.out.println("Boton particiion numero"+e.getActionCommand());
+		jPrincipal.processToPartitionVisibility(true,e.getActionCommand());
 	}
 	}
 
@@ -170,9 +169,11 @@ public class ControllerApp implements ActionListener {
 	}
 
 	private void executeListProcess(ArrayList<Object[]> listProcess,String partition) {
-		for (int i = 0; i < listProcess.size(); i++) {
+		System.out.println("procesos ates"+executeProcess.allProcessSize());
+		int aux = executeProcess.allProcessSize();
+		for (int i = aux; i < listProcess.size(); i++) {
 			Object[] vector = listProcess.get(i);
-			System.out.println("proceso"+vector[0]+"partiticon"+partition);
+			System.out.println("proceso"+vector[0]+"partition"+partition);
 			Process temp=new Process("" + vector[0], Integer.parseInt("" + vector[1]),Integer.parseInt("" + vector[2]),Boolean.parseBoolean(""+vector[3]));
 			executeProcess.addProcessToQueue(temp,partition);
 		}

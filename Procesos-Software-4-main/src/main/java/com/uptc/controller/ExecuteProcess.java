@@ -39,6 +39,11 @@ public class ExecuteProcess {
     public void addPartitionToList(Partition p) {
         this.allPartition.add(p);
     }
+
+    public int allProcessSize(){
+        return this.allProcess.size();
+    }
+
     public void addProcessToQueue(Process process,String partition) {
         // this.processes.add(process);
          this.allProcess.add(process);

@@ -120,8 +120,13 @@ public class JFramePrincipal extends JFrame {
 		table.setVisible(visibility);
 	}
 
-	public void processToPartitionVisibility(boolean visibility,ProcessToPartition table) {
+	public void processToPartitionVisibility(boolean visibility,String partitionName) {
+		System.out.println("Entrooo");
+		processToPartition.setIdPartitionTable(partitionName);
+		System.out.println("Entrooo2");
 		processToPartition.setVisible(visibility);
+		System.out.println("---"+partitionName);
+	
 	}
 
     public void deleteProcess(int id,ActionListener actionListener) {
@@ -159,6 +164,14 @@ public class JFramePrincipal extends JFrame {
 
 	public Object[] getInformationCreatePartition() {
 		return headerPartition.getInformationCreatePartition();
+	}
+
+	public String getNamePartition() {
+		return processToPartition.getIdPartitionTable();
+	}
+
+	public void processToPartitionVisibilityFalse(boolean visibility) {
+		processToPartition.setVisible(visibility);
 	}
 
 }

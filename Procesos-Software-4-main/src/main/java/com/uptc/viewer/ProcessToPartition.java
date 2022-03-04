@@ -39,6 +39,7 @@ public class ProcessToPartition extends JDialog {
 	private JLabel tittle, lNameProcess, lProcessTime, lProcessSize;
 	private JTextField nameProcess, processTime, processSize;
 	private int numProcess;
+	private String namePartition;
 
 	public ProcessToPartition(JFramePrincipal jFramePrincipal, ActionListener actionListener) {
 		this.setModal(true);
@@ -61,7 +62,7 @@ public class ProcessToPartition extends JDialog {
 		this.initComponents(actionListener);
 	}
 
-	private void initComponents(ActionListener actionListener) {	
+	private void initComponents(ActionListener actionListener) {
 		jPanelPrincipal.setLayout(new BorderLayout());
 
 		northPanel.setLayout(new BoxLayout(northPanel, BoxLayout.Y_AXIS));
@@ -206,5 +207,14 @@ public class ProcessToPartition extends JDialog {
     public void addElementUniqueToTable(Object[] data, ActionListener actionListener) {
 		centerTable.addElementUniqueToTable(data,actionListener);
     }
+
+	public void setIdPartitionTable(String partitionName) {
+        this.namePartition=partitionName;
+	}
+
+
+	public String getIdPartitionTable() {
+        return this.namePartition;
+	}
 
 }
