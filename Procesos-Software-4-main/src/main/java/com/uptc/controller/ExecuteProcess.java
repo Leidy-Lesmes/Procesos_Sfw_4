@@ -108,7 +108,7 @@ public class ExecuteProcess {
                 }
              }
          } else {
-             noExecuteProcess.add(p);
+            p.states(timeProcess, timeProcess, NOEXECUTE,READY);
          }
  
      }
@@ -148,6 +148,11 @@ public class ExecuteProcess {
 
     public String[] reportHeadersTable() {
         return report.headerTable();
+    }
+
+
+    public ArrayList<Object[]> reportByNoExecuteProcess() {
+        return report.reportByNoExecuteProcess();
     }
     
    

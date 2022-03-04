@@ -149,4 +149,9 @@ public class HeaderPartition extends JPanel  {
     public void deletePartition(int id, ActionListener actionListener2) {
 		tablePartition.deletePartition(id, actionListener);
     }
+
+	public void cleanFields(){
+		namePartition.setText("");
+		sizePartition.setText("");
+	}
 }

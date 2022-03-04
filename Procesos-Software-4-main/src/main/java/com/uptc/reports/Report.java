@@ -59,10 +59,11 @@ public class Report {
 
     public ArrayList<Object[]> getReportByLockedStates() {
         ArrayList<Object[]> aux= new ArrayList<>();
-        registers.get(LOCKED).stream()
-                .sorted(Comparator.comparingInt(Register::getTimeEnd))
-                .map(x -> (aux.add(new String[]{ ""+x.getTimeEnd(),x.getProcess().getName()})))
-                .forEach(System.out::print);
+        for (Process processIter : processes) {
+         if (processIter.isBlocked()){
+            aux.add(new String[]{ ""+processIter.getName()});
+             }
+            }
     return aux;
     }
     
@@ -81,6 +82,16 @@ public class Report {
                 .distinct()
                 .sorted(Comparator.comparingInt(Register::getTimeInit))
                 .map(x -> (aux.add(new String[]{ ""+x.getTimeInit(),""+x.getTimeEnd(),x.getProcess().getName()})))
+                .forEach(System.out::print);
+        return aux;
+    }
+
+    public ArrayList<Object[]> reportByNoExecuteProcess() {
+        ArrayList<Object[]> aux= new ArrayList<>();
+        registers.get(NOEXECUTE).stream()
+                .distinct()
+                .sorted(Comparator.comparingInt(Register::getTimeInit))
+                .map(x -> (aux.add(new String[]{ x.getProcess().getName(),""+x.getProcess().getsize(),})))
                 .forEach(System.out::print);
         return aux;
     }

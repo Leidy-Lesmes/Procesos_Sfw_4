@@ -65,6 +65,7 @@ public class JTableDataReport extends JPanel {
 
 	public void addElementToTable(ArrayList<Object[]> datasList) {
 		for (Object[] datasObject : datasList) {
+
 			dtmElements.addRow(datasObject);
 		}
 	}

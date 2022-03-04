@@ -216,5 +216,12 @@ public class ProcessToPartition extends JDialog {
 	public String getIdPartitionTable() {
         return this.namePartition;
 	}
+    
+	public void cleanFields(){
+		nameProcess.setText("");
+		processTime.setText("");
+		processSize.setText("");
+		isBlocked.setSelected(false);
+	}
 
 }

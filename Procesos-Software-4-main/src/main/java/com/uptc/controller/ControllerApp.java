@@ -36,13 +36,14 @@ public class ControllerApp implements ActionListener {
 			// agregar proceso a la tabla de procesos
 			System.out.println("add proceso");
 			addProcessTable(this);
+			jPrincipal.cleanFieldsProcess();
 			break;
 		case C_ADD_PARTITION:
 			// agregar proceso a la tabla de procesos
 			System.out.println("agregar particion");
 			addPartitionTable(this);
 			addPartitionList(jPrincipal.getInformationCreatePartition());
-
+            jPrincipal.cleanFieldPartition();
 			break;
 
 		case C_ADD_PROCESS_TO_PARTICION:
@@ -97,7 +98,7 @@ public class ControllerApp implements ActionListener {
 			case C_REPORT_BY_LOCKED_STATES:
 			// reporte por orden en el estado en bloqueo
 			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT5);
-			reportTable.assignHeaders(this, Constants.headersEstados,Constants.TOP_T_MENUITEM_REPORT5);
+			reportTable.assignHeaders(this, Constants.headersR5,Constants.TOP_T_MENUITEM_REPORT5);
 			reportTable.cleanRowsTable();
 			reportTable.addElementToTable(reportByLockedStates());
 			jPrincipal.reportTableVisibility(true,reportTable);
@@ -109,6 +110,15 @@ public class ControllerApp implements ActionListener {
 			reportTable.assignHeaders(this,Constants.headersR6,Constants.TOP_T_MENUITEM_REPORT10);
 			reportTable.cleanRowsTable();
 			reportTable.addElementToTable(reportByCpuExecuteOrder());
+			jPrincipal.reportTableVisibility(true,reportTable);
+			break;
+
+		case C_REPORT_BY_NOEXECUTE_STATES:
+			// reporte por orden en el estado de en ejecución
+			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT12);
+			reportTable.assignHeaders(this,Constants.headersR8,Constants.TOP_T_MENUITEM_REPORT12);
+			reportTable.cleanRowsTable();
+			reportTable.addElementToTable(reportByNoExecuteProcess());
 			jPrincipal.reportTableVisibility(true,reportTable);
 			break;
 
@@ -145,6 +155,10 @@ public class ControllerApp implements ActionListener {
 		System.out.println("Boton particiion numero"+e.getActionCommand());
 		jPrincipal.processToPartitionVisibility(true,e.getActionCommand());
 	}
+	}
+
+	private ArrayList<Object[]> reportByNoExecuteProcess() {
+		return executeProcess.reportByNoExecuteProcess();
 	}
 
 	private void addPartitionTable(ControllerApp controllerApp) {

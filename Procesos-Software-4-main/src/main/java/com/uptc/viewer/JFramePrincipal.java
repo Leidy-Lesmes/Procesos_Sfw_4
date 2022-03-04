@@ -174,4 +174,12 @@ public class JFramePrincipal extends JFrame {
 		processToPartition.setVisible(visibility);
 	}
 
+	public void cleanFieldsProcess() {
+		processToPartition.cleanFields();
+	}
+
+	public void cleanFieldPartition() {
+		headerPartition.cleanFields();
+	}
+
 }

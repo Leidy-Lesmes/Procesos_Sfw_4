@@ -119,7 +119,9 @@ public class ReportDialog extends JDialog {
 		centerTable.cleanRowsTable();
 	} 
 
+
 	public void addElementToTable(ArrayList<Object[]> datasList){
 		centerTable.addElementToTable(datasList);
 	}
+
 }

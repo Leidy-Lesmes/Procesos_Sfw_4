@@ -16,7 +16,7 @@ public class MenuBarReports extends JMenuBar {
 	private static final long serialVersionUID = 1L;
 
 	private JMenu report;
-	private JMenuItem report2, report3, report4, report5,report6, report10, report11;
+	private JMenuItem report2, report3, report4, report5,report6, report10, report11,report12;
 	private JButton executeButton, closeApppButton;
 
 	public MenuBarReports(ActionListener actionListener) {
@@ -79,6 +79,13 @@ public class MenuBarReports extends JMenuBar {
 		report10.addActionListener(actionListener);
 		report10.setActionCommand(Commands.C_REPORT_BY_EXECUTE_STATES.toString());
 		report.add(report10);
+		report.addSeparator();
+
+		report12 = new JMenuItem(Constants.TOP_T_MENUITEM_REPORT12);
+		report12.setFont(Constants.FONT_MENUBAR);
+		report12.addActionListener(actionListener);
+		report12.setActionCommand(Commands.C_REPORT_BY_NOEXECUTE_STATES.toString());
+		report.add(report12);
 		report.addSeparator();
 
 		report11 = new JMenuItem(Constants.TOP_T_MENUITEM_REPORT11);
