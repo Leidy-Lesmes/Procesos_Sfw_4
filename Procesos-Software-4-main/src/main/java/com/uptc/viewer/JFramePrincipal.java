@@ -22,7 +22,6 @@ public class JFramePrincipal extends JFrame {
 	private JPanel jPanelPrincipal;
 	private HeaderPartition headerPartition;
 	private JTableData centerTable;
-	private TablePartition tablePartition;
 	private MenuBarReports menuBarr;
 	private ProcessToPartition processToPartition;
 
@@ -30,14 +29,13 @@ public class JFramePrincipal extends JFrame {
 		super(Constants.TITTLE_APP);
 		//this.setSize(1620, 870);
 		
-		this.setSize(1200, 870);
+		this.setSize(1200, 700);
 		Image icon = new ImageIcon(Constants.LOGO_APP).getImage().getScaledInstance(500, 500, Image.SCALE_DEFAULT);
 		this.setIconImage(icon);
 		this.setUndecorated(true);
 		this.jPanelPrincipal = new JPanel();
 		this.headerPartition = new HeaderPartition(actionListener);
-		this.tablePartition = new TablePartition(Constants.headersPartition);
-		this.centerTable = new JTableData(Constants.PRICIPAL_HEADERS);
+	//	this.centerTable = new JTableData(Constants.PRICIPAL_HEADERS);
 		this.menuBarr = new MenuBarReports(actionListener);
 		this.processToPartition = new ProcessToPartition(this, actionListener);
 		this.initComponents(actionListener);
@@ -56,11 +54,11 @@ public class JFramePrincipal extends JFrame {
 	}
 
 	public void cleanRowsTableProcess() {
-		centerTable.cleanRowsTable();
+		processToPartition.cleanRowsTable();
 	}
 
 	public void cleanRowsTablePartition() {
-		tablePartition.cleanRowsTable();
+		headerPartition.cleanRowsTable();
 	}
 
 	private void addWindowsListenerOption() {
@@ -79,29 +77,29 @@ public class JFramePrincipal extends JFrame {
 	}
 
 	public ArrayList<Object[]> getProcessInformationProcess() {
-		return centerTable.getProcessInformation( );
+		return processToPartition.getProcessInformation( );
 	}
 
 	public ArrayList<Object[]> getProcessInformationPartition() {
-		return tablePartition.getPartitionInformation();
+		return headerPartition.getPartitionInformation();
 	}
 
 	public void addElementToTablePrincipalTableProcess(ActionListener actionListener ) {
-		centerTable.addElementToTable(getProcessInformationProcess());
+		processToPartition.addElementToTable(getProcessInformationProcess());
 	}
 
 	public void addElementToTablePrincipalTablePartition(ActionListener actionListener ) {
-		tablePartition.addElementToTable(getProcessInformationPartition());
+		headerPartition.addElementToTable(getProcessInformationPartition());
 	}
 
 	public void setInformationProcessTable(ActionListener actionListener) {
 	if(checkNameProcess(getProcessInformationProcess())){
 		processToPartition.incrementIdProcess();
-		Object[] data ={processToPartition.getNameProcess(), processToPartition.getProcessTime(),
-				processToPartition.getSizeProcess(), } ;
-		centerTable.addElementUniqueToTable(data, actionListener);
+		Object[] data ={processToPartition.getId(),processToPartition.getNameProcess(), processToPartition.getProcessTime(),
+				processToPartition.getSizeProcess(),processToPartition.getIsBlocked() } ;
+		processToPartition.addElementUniqueToTable(data, actionListener);
 		} else {
-			JOptionPane.showMessageDialog(this, "Nombre de proceso ya existente");
+			JOptionPane.showMessageDialog(processToPartition, "Nombre de proceso ya existente");
 		}
 	}
 
@@ -127,11 +125,11 @@ public class JFramePrincipal extends JFrame {
 	}
 
     public void deleteProcess(int id,ActionListener actionListener) {
-		centerTable.deleteProcess(id,actionListener);
+		processToPartition.deleteProcess(id,actionListener);
     }
 
 	public void deletePartition(int id,ActionListener actionListener) {
-		tablePartition.deletePartition(id,actionListener);
+		headerPartition.deletePartition(id,actionListener);
     }
 
     public ArrayList<Object[]> getPartitionInformation() {
@@ -143,7 +141,7 @@ public class JFramePrincipal extends JFrame {
 		if(checkNamePartition(getPartitionInformation())){
 			headerPartition.incrementId();
 			Object[] data ={headerPartition.getId(),headerPartition.getNamePartition(), headerPartition.getSizePartition()};
-			tablePartition.addElementUniqueToTable(data, actionListener);
+			headerPartition.addElementUniqueToTable(data, actionListener);
 		} else {
 				JOptionPane.showMessageDialog(this, "Nombre de proceso ya existente");
 		}
@@ -158,4 +156,9 @@ public class JFramePrincipal extends JFrame {
 		}
 		return true;
 	}
+
+	public Object[] getInformationCreatePartition() {
+		return headerPartition.getInformationCreatePartition();
+	}
+
 }

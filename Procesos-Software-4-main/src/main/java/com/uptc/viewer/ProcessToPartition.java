@@ -33,9 +33,9 @@ public class ProcessToPartition extends JDialog {
     
     private static final long serialVersionUID = 1L;
 	private JPanel  jPanelPrincipal,tittlePanel,northPanel, labelsData, dataProcess, southPanel;
-	private JTableDataReport centerTable;
+	private JTableData centerTable;
 	private JCheckBox isBlocked; 
-	private JButton saveButton, closeButton;
+	private JButton saveButton, closeButton, addButton;
 	private JLabel tittle, lNameProcess, lProcessTime, lProcessSize;
 	private JTextField nameProcess, processTime, processSize;
 	private int numProcess;
@@ -52,7 +52,7 @@ public class ProcessToPartition extends JDialog {
 		this.dataProcess = new JPanel();
 		this.tittlePanel = new JPanel();
 		this.southPanel = new JPanel();
-		this.centerTable = new JTableDataReport(Constants.PRICIPAL_HEADERS);
+		this.centerTable = new JTableData(Constants.PRICIPAL_HEADERS);
 		this.setUndecorated(true);
 	//	this.setTitleFrame(title);
 		this.setLocationRelativeTo(jFramePrincipal);
@@ -113,9 +113,16 @@ public class ProcessToPartition extends JDialog {
 		jPanelPrincipal.add(centerTable, BorderLayout.CENTER);
 
 		southPanel.setBackground(Constants.COLOR_TITTLE_PANEL);
+
+		addButton = new JButton();
+		addButton.addActionListener(actionListener);
+		addButton.setActionCommand(Commands.C_SAVE_PROCESS_PARTITION.toString());
+
+
 		closeButton = new JButton();
 		closeButton.addActionListener(actionListener);
 		closeButton.setActionCommand(Commands.C_CLOSE_DIALOG_ADD_PROCESS.toString());
+		southPanel.add(Utilities.button(addButton, new Dimension(100, 30), "Agregar"));
 		southPanel.add(Utilities.button(closeButton, new Dimension(100, 30), "Cerrar"));
 
 		jPanelPrincipal.add(southPanel, BorderLayout.SOUTH);
@@ -180,8 +187,24 @@ public class ProcessToPartition extends JDialog {
 		return isBlocked.isSelected();
 	 }
 
+	 public int getId(){
+        return numProcess;
+	 }
+
 	public int incrementIdProcess() {
         return numProcess++;
+    }
+
+	public ArrayList<Object[]> getProcessInformation() {
+		return centerTable.getProcessInformation();
+	}
+
+	public void deleteProcess(int id, ActionListener actionListener) {
+		centerTable.deleteProcess(id,actionListener);
+	}
+
+    public void addElementUniqueToTable(Object[] data, ActionListener actionListener) {
+		centerTable.addElementUniqueToTable(data,actionListener);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.uptc.models;
 
+import java.util.LinkedList;
 import java.util.Queue;
 
 public class Partition {
@@ -12,6 +13,7 @@ public class Partition {
     public Partition(String name, int size) {
         this.name = name;
         this.size = size;
+        processes= new LinkedList<>();
     }
 
     public void addProcesses(Process p){

@@ -11,13 +11,16 @@ public class Process {
     private final String name;
     private int time;
     private final int size;
+    private boolean isBlocked;
+    private String partitionAsing;
 
     private final Map<Integer, List<Register>> register;
 
-    public Process(String name, int time, int size) {
+    public Process(String name, int time, int size,boolean isBlocked) {
         this.name = name;
         this.time = time;
         this.size = size;
+        this.isBlocked=isBlocked;
         this.register = new HashMap<>();
     }
 
@@ -32,6 +35,14 @@ public class Process {
         if (!register.containsKey(time)) register.put(time, new ArrayList<>());
         if (!register.get(time).contains(status)) register.get(time).add(status);
     }
+    
+    public void partitionAsing(String partition){
+        partitionAsing=partition;
+    }
+
+    public String getPartitionAsing(){
+        return partitionAsing;
+    }
 
     public int getTime() {
         return time;
@@ -39,6 +50,10 @@ public class Process {
 
     public void setTime(int time) {
         this.time -= time;
+    }
+
+    public boolean isBlocked() {
+        return isBlocked;
     }
 
     public String getName() {

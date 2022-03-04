@@ -64,7 +64,7 @@ public class JTableData extends JPanel {
 	public void defaulModel(){
 		dtmElements.setColumnIdentifiers(headers);
 		jtElements.setModel(dtmElements);
-		jtElements.getColumn(Constants.PRICIPAL_HEADERS[3]).setCellEditor(new TableCellEditor() {
+		jtElements.getColumn(Constants.PRICIPAL_HEADERS[4]).setCellEditor(new TableCellEditor() {
 			
 			@Override
 			public boolean stopCellEditing() {
@@ -128,7 +128,7 @@ public class JTableData extends JPanel {
 	}
 
 	public void addElementUniqueToTable(Object[] datasList, ActionListener actionListener) {
-		Object[] row = new Object[] { datasList[1], datasList[2],datasList[3],
+		Object[] row = new Object[] { datasList[1], datasList[2],datasList[3],datasList[4],
 		createButton(actionListener,String.valueOf(datasList[0]))};
 		dtmElements.addRow(row);
 	}

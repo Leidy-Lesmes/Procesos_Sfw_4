@@ -39,80 +39,82 @@ public class ExecuteProcess {
     public void addPartitionToList(Partition p) {
         this.allPartition.add(p);
     }
-
-    public void addProcessToQueue(Process p) {
-        this.processes.add(p);
-        this.allProcess.add(p);
-        addProcessPartition();
-        totalTime += p.getTime();
-        p.states(0, 0, READY, INIT);
-    }
-
-    	
-    public void init() {
-        this.timeCPU = 5;
-        cloneListPartition();
-        while (!partitions.isEmpty()){
-        Partition pAux=partitions.poll();
-            while(!pAux.getListProcess().isEmpty()){
-                    attendCPU(pAux); 
-                }
-        }
-    }
-
-    private void cloneListPartition() {
+    public void addProcessToQueue(Process process,String partition) {
+        // this.processes.add(process);
+         this.allProcess.add(process);
+         addProcessPartition(process,partition);
+         totalTime += process.getTime();
+         process.states(0, 0, READY, INIT);
+     }
+ 
+     
+     private void addProcessPartition(Process process, String partition) {
         for (Partition partitionIter : allPartition) {
-              partitions.add(partitionIter);
-        }
-    }
-
-
-    private void addProcessPartition() {
-        int sizeProcess=0;
-        int iter=0;
-        while(iter<=allPartition.size()) {
-            while(!processes.isEmpty()) {
-                if(allPartition.get(iter).getSize()<=sizeProcess){
-                    sizeProcess+=processes.peek().getsize();
-                    allPartition.get(iter).addProcesses(processes.poll());
-                }
-                else {
-                    iter++;
-                }
+            if(partitionIter.getName().equals(partition)){
+                partitionIter.addProcesses(process);
+                process.partitionAsing(partition);
             }
         }
-    }
-
-
-    private void attendCPU(Partition pAux) {
-        Process p=pAux.getListProcess().poll();
-        System.out.println("ATENDIENDO PROCESO" + p.getName());
-        System.out.println(p.getName()+"tiempo"+p.getTime());
-        if(pAux.getSize()<=p.getsize()){
-            if (p.getTime() > timeCPU) { // 500 - 100
-                p.setTime(timeCPU);
-                p.states(timeProcess, timeProcess += timeCPU, EXECUTE, READY);
-                p.states(timeProcess, timeProcess += timeCPU, READY, EXECUTE);
-                pAux.getListProcess().add(p);
-            } else { // 50 100
-                int timePi = p.getTime();
-                p.setTime(timePi);
-                p.states(timeProcess, timeProcess += timePi, EXECUTE, READY);
-                p.states(timeProcess, timeProcess, EXIT, EXECUTE);
-            }
-        } else {
-            noExecuteProcess.add(p);
-        }
-
-    }
+     }
+ 
+ 
+ 
+     public void init() {
+         this.timeCPU = 5;
+         cloneListPartition();
+         while (!partitions.isEmpty()){
+         Partition pAux=partitions.poll();
+             while(!pAux.getListProcess().isEmpty()){
+                     attendCPU(pAux); 
+                 }
+         }
+     }
+ 
+     private void cloneListPartition() {
+         for (Partition partitionIter : allPartition) {
+               partitions.add(partitionIter);
+         }
+     }
+ 
+     private void attendCPU(Partition pAux) {
+         Process p=pAux.getListProcess().poll();
+         System.out.println("ATENDIENDO PROCESO" + p.getName());
+         System.out.println(p.getName()+"tiempo"+p.getTime());
+         if(p.getsize()<=pAux.getSize()){
+             if (p.getTime() > timeCPU) { // 500 - 100
+                 p.setTime(timeCPU);
+                 p.states(timeProcess, timeProcess += timeCPU, EXECUTE, READY);
+                 if (p.isBlocked()) {
+                    p.states(timeProcess, timeProcess, LOCKED, EXECUTE);
+                    p.states(timeProcess, timeProcess, READY, LOCKED);
+                } else {
+                    p.states(timeProcess, timeProcess, READY, EXECUTE);
+                }
+                 pAux.getListProcess().add(p);
+             } else { // 50 100
+                 int timePi = p.getTime();
+                 p.setTime(timePi);
+                 p.states(timeProcess, timeProcess += timePi, EXECUTE, READY);
+                 if (p.isBlocked()) {
+                    p.states(timeProcess, timeProcess, LOCKED, EXECUTE);
+                    p.states(timeProcess, timeProcess, EXIT, EXECUTE);
+                } else {
+                    p.states(timeProcess, timeProcess, EXIT, EXECUTE);
+                }
+             }
+         } else {
+             noExecuteProcess.add(p);
+         }
+ 
+     }
 
 
     public void reports() {
-        report = new Report(allProcess, totalTime, timeCPU);
+        report = new Report(allProcess,allPartition, totalTime, timeCPU);
     }
 
-    public ArrayList<Object[]> reportMissingTimeProcess(){
-        return report.getReportMissingTimeProcess();
+    public ArrayList<Object[]> reportPartitionsProcess(){
+        return report.getReportForPartition();
     }
 
     public ArrayList<Object[]> reportStatusChangeProcess() {

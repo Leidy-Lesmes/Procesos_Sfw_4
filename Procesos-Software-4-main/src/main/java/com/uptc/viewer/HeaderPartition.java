@@ -132,4 +132,21 @@ public class HeaderPartition extends JPanel  {
 	public ArrayList<Object[]> getPartitionInformation() {
 		return tablePartition.getPartitionInformation();
 	}
+	public Object[] getInformationCreatePartition() {
+		Object data[] ={getNamePartition(),getSizePartition()};
+		return data;
+	}
+
+	public void addElementToTable(ArrayList<Object[]> datasList) {
+		tablePartition.addElementToTable(datasList);
+	}
+
+
+	public void cleanRowsTable() {
+		tablePartition.cleanRowsTable();
+	}
+
+    public void deletePartition(int id, ActionListener actionListener2) {
+		tablePartition.deletePartition(id, actionListener);
+    }
 }

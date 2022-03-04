@@ -1,5 +1,6 @@
 package com.uptc.reports;
 
+import com.uptc.models.Partition;
 import com.uptc.models.Process;
 import com.uptc.models.Register;
 import com.uptc.models.States;
@@ -15,13 +16,15 @@ public class Report {
 
     public static final ArrayList<Object[]> getReportByExecuteStates = null;
     private final List<Process> processes;
+    private final List<Partition> partitions;
     private final Map<States, List<Register>> registers;
     private final int totalTime;
     private final int timeCPU;
     private final int timeApprox;
 
-    public Report(List<Process> processList, int totalTime, int timeCPU) {
+    public Report(List<Process> processList, List<Partition> partitionList, int totalTime, int timeCPU) {
         this.processes = processList;
+        this.partitions=partitionList;
         this.timeCPU = timeCPU;
         this.totalTime = totalTime;
         this.timeApprox = getFinal();
@@ -29,11 +32,11 @@ public class Report {
                 .collect(Collectors.groupingBy(Register::getStatus));
     }
 
-    public ArrayList<Object[]> getReportMissingTimeProcess(){
+    public ArrayList<Object[]> getReportForPartition(){
         ArrayList<Object[]> aux= new ArrayList<>();
         processes.stream()
-        .sorted(Comparator.comparing(Process::getName))
-        .forEach(x -> aux.add(x.getTableByTime(timeApprox, timeCPU)));
+        .sorted(Comparator.comparing(Process::getPartitionAsing))
+        .forEach(x -> aux.add(new Object[] {x.getPartitionAsing(),x.getName(),x.getsize()}));
         return aux;
     }
 

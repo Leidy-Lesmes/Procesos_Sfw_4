@@ -25,6 +25,7 @@ public class ControllerApp implements ActionListener {
 	public ControllerApp() {
 		executeProcess = new ExecuteProcess();
 		jPrincipal = new JFramePrincipal(this,  headersReports);
+		processToPartition= new ProcessToPartition(jPrincipal, this);
 	}
 
 	@Override
@@ -33,20 +34,28 @@ public class ControllerApp implements ActionListener {
 		switch (Commands.valueOf(e.getActionCommand())) {
 		case C_ADD_PROCESS:
 			// agregar proceso a la tabla de procesos
+			System.out.println("add proceso");
 			addProcessTable(this);
 			break;
 		case C_ADD_PARTITION:
 			// agregar proceso a la tabla de procesos
-			
+			System.out.println("agregar particion");
 			addPartitionTable(this);
-			
-			//jPrincipal.addPartitionIncComboBox();
-			//jPrincipal.changeStatusJtextfield();
+			addPartitionList(jPrincipal.getInformationCreatePartition());
+
 			break;
 
 		case C_ADD_PROCESS_TO_PARTICION:
+			System.out.println("agregar procesos particion");
 			jPrincipal.processToPartitionVisibility(true, processToPartition);
 			break;
+
+		case C_SAVE_PROCESS_PARTITION:
+			System.out.println("agregar procesos particion");
+			System.out.println("PARTICION"+Commands.C_ADD_PROCESS_TO_PARTICION.getName());
+            executeListProcess(jPrincipal.getProcessInformationProcess(),Commands.C_ADD_PROCESS_TO_PARTICION.getName());
+			break;
+			
 
 		case C_EXECUTE_PROCESS:
 			// Ejecutar lista de procesos
@@ -73,7 +82,6 @@ public class ControllerApp implements ActionListener {
 			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT3);
 			reportTable.assignHeaders(this,Constants.headersEstados,Constants.TOP_T_MENUITEM_REPORT3);
 			reportTable.cleanRowsTable();
-			System.out.println("controler"+Constants.headersEstados[0]);
 			reportTable.addElementToTable(reportByExitState());
 			jPrincipal.reportTableVisibility(true,reportTable);
 			break;
@@ -114,6 +122,15 @@ public class ControllerApp implements ActionListener {
 			jPrincipal.reportTableVisibility(true,reportTable);
 			break;
 
+		case C_REPORT_BY_LIST_PARTITION:
+			// reporte por orden en el estado en salida
+			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT5);
+			reportTable.assignHeaders(this,Constants.headersPartitionList,Constants.TOP_T_MENUITEM_REPORT5);
+			reportTable.cleanRowsTable();
+			reportTable.addElementToTable(reportForTransitions());
+			jPrincipal.reportTableVisibility(true,reportTable);
+			break;
+
 		case C_CLOSE_DIALOG_REPORT:
 			reportTable.setVisible(false);
 			break;
@@ -126,6 +143,7 @@ public class ControllerApp implements ActionListener {
 			break;
 		}
 	}catch (Exception ex) {
+		System.out.println("Boton eliminar");
 		deleteProcess(Integer.valueOf(e.getActionCommand()));
 	}
 	}
@@ -138,41 +156,35 @@ public class ControllerApp implements ActionListener {
 		jPrincipal.setInformationProcessTable(actionListener);
 	}
 
-	public void execute() {
-		// set lista de procesos
-		executeListProcess(jPrincipal.getProcessInformationProcess());
-		// set lista de particion
-		addPartitionList(jPrincipal.getProcessInformationPartition());
-
-	}
-
-	
-	private void addPartitionList(ArrayList<Object[]> listPartition) {
-		for (int i = 0; i < listPartition.size(); i++) {
-			Object[] vector = (Object[]) listPartition.get(i);
-			Partition temp=new Partition("" + vector[0], Integer.parseInt("" + vector[1]));
-			executeProcess.addPartitionToList(temp);
-		}
-	}
-
-	private void executeListProcess(ArrayList<Object[]> listProcess) {
-		for (int i = 0; i < listProcess.size(); i++) {
-			Object[] vector = (Object[]) listProcess.get(i);
-			Process temp=new Process("" + vector[0], Integer.parseInt("" + vector[1]),Integer.parseInt("" + vector[1]));
-			executeProcess.addProcessToQueue(temp);
-		}
+	private void execute(){
 		executeProcess.init();
 		executeProcess.reports();
 		JOptionPane.showMessageDialog(null, "Ejecucion realizada correctamente");
 	}
+	private void addPartitionList(Object[] listPartition) {
+		//for (int i = 0; i < listPartition.size(); i++) {
+		//	Object[] vector = (Object[]) listPartition;
+			Partition temp=new Partition("" + listPartition[0], Integer.parseInt("" + listPartition[1]));
+			executeProcess.addPartitionToList(temp);
+		//}
+	}
 
+	private void executeListProcess(ArrayList<Object[]> listProcess,String partition) {
+		for (int i = 0; i < listProcess.size(); i++) {
+			Object[] vector = listProcess.get(i);
+			System.out.println("proceso"+vector[0]+"partiticon"+partition);
+			Process temp=new Process("" + vector[0], Integer.parseInt("" + vector[1]),Integer.parseInt("" + vector[2]),Boolean.parseBoolean(""+vector[3]));
+			executeProcess.addProcessToQueue(temp,partition);
+		}
+		JOptionPane.showMessageDialog(null, "Procesos agregados correctamente");
+	}
 
 	public String[] getHeadersTable() {
 		return executeProcess.reportHeadersTable();
 	}
 
-	public ArrayList<Object[]> reportMissingTimeProcess() {
-		return executeProcess.reportMissingTimeProcess();
+	public ArrayList<Object[]> reportForTransitions() {
+		return executeProcess.reportPartitionsProcess();
 	}
 
 	public ArrayList<Object[]> reportStatusChangeProcess() {

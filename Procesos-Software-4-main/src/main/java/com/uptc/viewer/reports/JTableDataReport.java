@@ -24,7 +24,6 @@ public class JTableDataReport extends JPanel {
 
 	public JTableDataReport(String[] headers) {
 		this.headers = headers;
-		System.out.println("table report");
 		initComponents();
 	}
 

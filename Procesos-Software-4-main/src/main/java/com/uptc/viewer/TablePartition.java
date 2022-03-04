@@ -115,7 +115,6 @@ public class TablePartition extends JPanel {
 				return (JButton)value;
 			}
 
-
 		});
 	}
 
@@ -135,7 +134,7 @@ public class TablePartition extends JPanel {
 
 	public void addElementUniqueToTable(Object[] datasList, ActionListener actionListener) {
 		Object[] row = new Object[] { datasList[1], datasList[2],
-		createButton(actionListener,String.valueOf(datasList[0]))};
+		createButton(actionListener,String.valueOf(datasList[1]))};
 		dtmElements.addRow(row);
 	}
 
@@ -151,7 +150,6 @@ public class TablePartition extends JPanel {
 	}
 
 	
-
 	public void cleanRowsTable() {
 		//dtmElements.setNumRows(0);
 		this.remove(jsTable);
@@ -159,7 +157,10 @@ public class TablePartition extends JPanel {
 
 	public JButton createButton(ActionListener actionListener,String id) {
 		JButton createButton = new JButton("Crear Procesos");
+		createButton.setName(id);
 		createButton.addActionListener(actionListener);
+		Commands.C_ADD_PROCESS_TO_PARTICION.setName(id);
+		System.out.println("nombre asignado"+Commands.C_ADD_PROCESS_TO_PARTICION.getName());
 		createButton.setActionCommand(Commands.C_ADD_PROCESS_TO_PARTICION.toString());
 		createButton.setBackground(Color.decode("#DF3A01"));
 		createButton.setForeground(Color.WHITE);
