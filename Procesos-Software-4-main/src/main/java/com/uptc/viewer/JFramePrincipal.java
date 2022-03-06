@@ -21,7 +21,6 @@ public class JFramePrincipal extends JFrame {
 
 	private JPanel jPanelPrincipal;
 	private HeaderPartition headerPartition;
-	private JTableData centerTable;
 	private MenuBarReports menuBarr;
 	private ProcessToPartition processToPartition;
 
@@ -35,7 +34,6 @@ public class JFramePrincipal extends JFrame {
 		this.setUndecorated(true);
 		this.jPanelPrincipal = new JPanel();
 		this.headerPartition = new HeaderPartition(actionListener);
-	//	this.centerTable = new JTableData(Constants.PRICIPAL_HEADERS);
 		this.menuBarr = new MenuBarReports(actionListener);
 		this.processToPartition = new ProcessToPartition(this, actionListener);
 		this.initComponents(actionListener);
