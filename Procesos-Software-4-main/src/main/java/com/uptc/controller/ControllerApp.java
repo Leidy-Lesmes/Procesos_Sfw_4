@@ -141,6 +141,24 @@ public class ControllerApp implements ActionListener {
 			jPrincipal.reportTableVisibility(true,reportTable);
 			break;
 
+		case C_REPORT_BY_TRANSITION_WAKE:
+			// reporte por orden en el estado en salida
+			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT8);
+			reportTable.assignHeaders(this,Constants.headersR9,Constants.TOP_T_MENUITEM_REPORT8);
+			reportTable.cleanRowsTable();
+			reportTable.addElementToTable(reportForTransitionWake());
+			jPrincipal.reportTableVisibility(true,reportTable);
+			break;
+
+		case C_REPORT_BY_TRANSITION_TIME_EXPIRED:
+			// reporte por orden en el estado en salida
+			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT9);
+			reportTable.assignHeaders(this,Constants.headersR9,Constants.TOP_T_MENUITEM_REPORT9);
+			reportTable.cleanRowsTable();
+			reportTable.addElementToTable(reportForTransitionTimeExpired());
+			jPrincipal.reportTableVisibility(true,reportTable);
+			break;
+
 		case C_CLOSE_DIALOG_REPORT:
 			reportTable.setVisible(false);
 			break;
@@ -170,6 +188,37 @@ public class ControllerApp implements ActionListener {
 		return executeProcess.reportByNoExecuteProcess();
 	}
 
+	public ArrayList<Object[]> reportForTransitionWake() {
+		ArrayList<Object[]> temp=executeProcess.reportTransitionWake();
+		ArrayList<Object[]> exit=new ArrayList<>();
+		for (Object[] tempIter : temp) {
+			if(tempIter[0]!=null && !existProcess(exit,tempIter[0])){
+              exit.add(tempIter);
+			}
+		}
+		return exit;
+	}
+
+		private boolean existProcess(ArrayList<Object[]> exit,Object process) {
+			for (Object[] tempIter : exit) {
+				if(tempIter[0].equals(process)){
+				  return true;
+				}
+			}
+		return false;
+	}
+
+		public ArrayList<Object[]> reportForTransitionTimeExpired() {
+		ArrayList<Object[]> temp=executeProcess.reportTransitionTimeExpired();
+		ArrayList<Object[]> exit=new ArrayList<>();
+			for (Object[] tempIter : temp) {
+				if(tempIter[0]!=null){
+				exit.add(tempIter);
+				}
+			}
+		return exit;
+	}
+	
 	private void addPartitionTable(ControllerApp controllerApp) {
 		jPrincipal.setInformationPartitionTable(controllerApp);
 	}

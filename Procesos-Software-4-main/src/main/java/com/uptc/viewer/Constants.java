@@ -22,6 +22,8 @@ public class Constants {
 	public static final String TOP_T_MENUITEM_REPORT4 = "REPORTE POR ORDEN EN EL ESTADO: LISTOS";
 	public static final String TOP_T_MENUITEM_REPORT5 = "REPORTE POR ORDEN EN EL ESTADO: BLOQUEADO";
 	public static final String TOP_T_MENUITEM_REPORT6 = "REPORTE POR PARTICIONES";
+	public static final String TOP_T_MENUITEM_REPORT8 = "REPORTE POR TRANSICION : DESPERTAR";
+	public static final String TOP_T_MENUITEM_REPORT9 = "REPORTE POR TRANSICION : EXPIRACION DE TIEMPO";
 	public static final String TOP_T_MENUITEM_REPORT10 = "REPORTE POR ORDEN DE EJECUCION EN LA CPU";
 	public static final String TOP_T_MENUITEM_REPORT12 = "REPORTE DE PROCESOS NO EJECUTADOS";
 	public static final String TOP_T_MENUITEM_REPORT11 = "REPORTE DEL PROCESO DE CAMBIO DE ESTADOS";
@@ -32,6 +34,7 @@ public class Constants {
 	public static final String [] headersR6 = {"Tiempo Inicial","Tiempo Final", "Proceso"};
 	public static final String [] headersR7 = {"Transacciones entre estados"};
 	public static final String [] headersR8 = {"Proceso","Tamaño"};
+	public static final String [] headersR9 = {"Proceso","Estado inicial","Estado final"};
 	public static final String [] headersPartition = {"Nombre Particion","Tamaño", "Agregar procesos"};
 	
 	public static final String [] PRICIPAL_HEADERS = {"Nombre del proceso", "Tiempo del proceso","Tamaño del proceso","Se bloquea"};

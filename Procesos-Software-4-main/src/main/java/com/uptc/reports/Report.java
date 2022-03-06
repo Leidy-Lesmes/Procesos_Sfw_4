@@ -176,4 +176,73 @@ public class Report {
         while (aux % timeCPU != 0) aux++;
         return aux;
     }
+
+    
+    public ArrayList<Object[]> getReportForTransitionWake() {
+        ArrayList<Object[]> aux= new ArrayList<>();
+        getTotalRegisters().stream().distinct()
+                .sorted((x, y) -> {
+                    if (x.getTimeEnd() == y.getTimeEnd())
+                        return x.getProcess().getName().compareTo(y.getProcess().getName());
+                    else
+                        return x.getTimeEnd() - y.getTimeEnd();
+                }).forEach(x -> aux.add(printRegisterWake(x))); 
+                System.out.println("tamaño reporte wake"+aux.size());
+        return aux;
+    }
+
+    public ArrayList<Object[]> getReportForTransitionTimeExpired() {
+        ArrayList<Object[]> aux= new ArrayList<>();
+        getTotalRegisters().stream().distinct()
+                .sorted((x, y) -> {
+                    if (x.getTimeEnd() == y.getTimeEnd())
+                        return x.getProcess().getName().compareTo(y.getProcess().getName());
+                    else
+                        return x.getTimeEnd() - y.getTimeEnd();
+                }).forEach(x -> aux.add(printRegisterTimeExpired(x))); 
+        return aux;
+    }
+
+     private Object[] printRegisterWake(Register x) {
+        States state = x.getPreviousState();
+        String nameProcess = x.getProcess().getName();
+        Object[] exit=new Object[3];
+        switch (state) {
+            case LOCKED:  // despertar
+                 exit[0]=""+nameProcess;
+                 exit[1]="bloqueado";
+                 exit[2]="listo";
+                // exit[0]="despertar ("+(nameProcess)+"): bloqueado ->  listo";
+
+                break;
+        }
+        return exit;
+    }
+
+
+    private Object[] printRegisterTimeExpired(Register x) {
+        States state = x.getPreviousState();
+        String nameProcess = x.getProcess().getName();
+        Object[] exit=new Object[1];
+        switch (state) {
+            case EXECUTE: // salio- bloqueado-listos
+                exit=evaluateStatusTime(x, nameProcess);
+                break;
+        }
+        return exit;
+    }
+
+    private Object[] evaluateStatusTime(Register x, String name) {
+        Object[] exit=new Object[3];
+        switch (x.getStatus()) {
+            case READY:
+                exit[0]=""+name;
+                exit[1]="En_ejecucion";
+                exit[2]="listo";
+               //exit[0]="tiempo_expirado ("+(name)+"): en_ejecucion -> listo";
+              // out.println("tiempo_expirado(" + name + "): en_ejecucion -> listo");
+                break;
+        }
+        return exit;
+    }
 }

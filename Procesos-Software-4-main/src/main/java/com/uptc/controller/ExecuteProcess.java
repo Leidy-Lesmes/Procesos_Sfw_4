@@ -133,6 +133,13 @@ public class ExecuteProcess {
     public ArrayList<Object[]> reportByExitState(){
         return report.getReportByExitState();
     }
+    public ArrayList<Object[]> reportTransitionWake(){
+        return report.getReportForTransitionWake();
+    }
+
+     public ArrayList<Object[]> reportTransitionTimeExpired(){
+        return report.getReportForTransitionTimeExpired();
+    }
 
     public ArrayList<Object[]> reportByLockedStates(){
         return report.getReportByLockedStates();
