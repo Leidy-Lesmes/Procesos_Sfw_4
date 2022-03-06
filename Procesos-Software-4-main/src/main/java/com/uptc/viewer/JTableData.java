@@ -66,7 +66,7 @@ public class JTableData extends JPanel {
 	public void defaulModel(){
 		dtmElements.setColumnIdentifiers(headers);
 		jtElements.setModel(dtmElements);
-		jtElements.getColumn(Constants.PRICIPAL_HEADERS[4]).setCellEditor(new TableCellEditor() {
+		jtElements.getColumn(Constants.PRICIPAL_HEADERS[3]).setCellEditor(new TableCellEditor() {
 			
 			@Override
 			public boolean stopCellEditing() {
@@ -141,7 +141,7 @@ public class JTableData extends JPanel {
 			row[0] = dtmElements.getValueAt(i, 0);
 			row[1] = dtmElements.getValueAt(i, 1);
 			row[2] = dtmElements.getValueAt(i, 2);
-			
+			row[3] = dtmElements.getValueAt(i, 3);
 			infoProcess.add(row);	
 		}
 		return infoProcess;
