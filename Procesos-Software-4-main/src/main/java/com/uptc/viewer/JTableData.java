@@ -18,6 +18,8 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 
+import com.uptc.controller.Commands;
+
 public class JTableData extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -128,8 +130,7 @@ public class JTableData extends JPanel {
 	}
 
 	public void addElementUniqueToTable(Object[] datasList, ActionListener actionListener) {
-		Object[] row = new Object[] { datasList[1], datasList[2],datasList[3],datasList[4],
-		createButton(actionListener,String.valueOf(datasList[0]))};
+		Object[] row = new Object[] { datasList[1], datasList[2],datasList[3],datasList[4]};
 		dtmElements.addRow(row);
 	}
 
@@ -140,7 +141,7 @@ public class JTableData extends JPanel {
 			row[0] = dtmElements.getValueAt(i, 0);
 			row[1] = dtmElements.getValueAt(i, 1);
 			row[2] = dtmElements.getValueAt(i, 2);
-			row[3] = dtmElements.getValueAt(i, 3);
+			
 			infoProcess.add(row);	
 		}
 		return infoProcess;
@@ -154,7 +155,7 @@ public class JTableData extends JPanel {
 	public JButton createButton(ActionListener actionListener,String id) {
 		JButton deletteButton = new JButton("Eliminar");
 		deletteButton.addActionListener(actionListener);
-		deletteButton.setActionCommand(id);
+		deletteButton.setActionCommand(Commands.C_DELETTE_PROCESS.toString());
 		System.out.println("Accion boton"+deletteButton.getActionCommand());
 		deletteButton.setBackground(Color.decode("#DF3A01"));
 		deletteButton.setForeground(Color.WHITE);
@@ -163,12 +164,14 @@ public class JTableData extends JPanel {
 		return deletteButton;
 	}
 
-	public void deleteProcess(int id,ActionListener actionListener) {
+	public void deleteProcess(String name,ActionListener actionListener) {
 		listProcess= new ArrayList<>();
 		int rowInitial=dtmElements.getRowCount()+1;
 		for (int i = 0; i < rowInitial; i++) {
-			int idProcess=Integer.parseInt(""+dtmElements.getValueAt(i, 0));
-			if(idProcess==id){
+			String nameProcess= ""+ dtmElements.getValueAt(i, 0);
+			System.out.println("proceso a eliminar " + name);
+			if(nameProcess.equals(name)){
+				System.out.println("--------------"+nameProcess);
 				dtmElements.removeRow(i);
 		      }
 			else {
@@ -182,7 +185,7 @@ public class JTableData extends JPanel {
 	        }
 		cleanRowsTable();
 		
-		//loadProcess(actionListener);
+		loadProcess(actionListener);
 	}
 
 	private void loadProcess(ActionListener actionListener) {

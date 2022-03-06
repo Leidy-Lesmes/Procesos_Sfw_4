@@ -27,21 +27,19 @@ public class HeaderPartition extends JPanel  {
 	private TablePartition tablePartition;
 	private int numProcess;
 	private int numPartition;
-	private ArrayList<String> partitionArray;
 	private ActionListener actionListener;
 
 	public HeaderPartition(ActionListener actionListener) {
 		super();
 		this.tittlePanel = new JPanel();
-		new JPanel();
+		
 		this.setActionListener(actionListener);
 		this.headerTittle = new JPanel();
-		new JPanel();
+		
 		this.partitionPanel = new JPanel();
-		new JPanel();
+		
 		this.tablePartition = new TablePartition(Constants.headersPartition);
-		this.partitionArray = new ArrayList<>();
-		new JPanel();
+	
 		this.initComponents(actionListener);
 		numProcess=0;
 		numPartition=0;
@@ -93,13 +91,6 @@ public class HeaderPartition extends JPanel  {
 
 	}
 
-	public void addPartitionInComboBox(){
-		for (int i = 0; i < partitionArray.size(); i++) {
-			partitionArray.add(i, namePartition.getText());		
-		}
-	}
-
-
 
 	public String getNamePartition(){
 		return namePartition.getText();
@@ -146,8 +137,8 @@ public class HeaderPartition extends JPanel  {
 		tablePartition.cleanRowsTable();
 	}
 
-    public void deletePartition(int id, ActionListener actionListener2) {
-		tablePartition.deletePartition(id, actionListener);
+    public void deletePartition(String name, ActionListener actionListener2) {
+		tablePartition.deletePartition(name, actionListener);
     }
 
 	public void cleanFields(){

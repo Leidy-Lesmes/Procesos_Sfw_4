@@ -27,7 +27,6 @@ import com.uptc.controller.Commands;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
-import com.uptc.viewer.reports.JTableDataReport;
 
 public class ProcessToPartition extends JDialog {
     
@@ -35,7 +34,7 @@ public class ProcessToPartition extends JDialog {
 	private JPanel  jPanelPrincipal,tittlePanel,northPanel, labelsData, dataProcess, southPanel;
 	private JTableData centerTable;
 	private JCheckBox isBlocked; 
-	private JButton saveButton, closeButton, addButton;
+	private JButton saveButton, closeButton, addButton, deleteButton;
 	private JLabel tittle, lNameProcess, lProcessTime, lProcessSize;
 	private JTextField nameProcess, processTime, processSize;
 	private int numProcess;
@@ -70,7 +69,7 @@ public class ProcessToPartition extends JDialog {
 		tittlePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		tittlePanel.setBackground(Constants.COLOR_TITTLE_PANEL);
 		tittle = new JLabel();
-		tittlePanel.add(Utilities.text(tittle, Constants.FONT_TITTLE, "Procesos particion X", Color.BLACK));
+		tittlePanel.add(Utilities.text(tittle, Constants.FONT_TITTLE, "Lista de procesos", Color.BLACK));
 		northPanel.add(tittlePanel);
 
 		labelsData.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
@@ -119,11 +118,15 @@ public class ProcessToPartition extends JDialog {
 		addButton.addActionListener(actionListener);
 		addButton.setActionCommand(Commands.C_SAVE_PROCESS_PARTITION.toString());
 
+		deleteButton = new JButton();
+		deleteButton.addActionListener(actionListener);
+		deleteButton.setActionCommand(Commands.C_DELETTE_PROCESS.toString());
 
 		closeButton = new JButton();
 		closeButton.addActionListener(actionListener);
 		closeButton.setActionCommand(Commands.C_CLOSE_DIALOG_ADD_PROCESS.toString());
-		southPanel.add(Utilities.button(addButton, new Dimension(100, 30), "Agregar"));
+		southPanel.add(Utilities.button(addButton, new Dimension(100, 30), "Aceptar"));
+		southPanel.add(Utilities.button(deleteButton, new Dimension(100, 30), "Eliminar"));
 		southPanel.add(Utilities.button(closeButton, new Dimension(100, 30), "Cerrar"));
 
 		jPanelPrincipal.add(southPanel, BorderLayout.SOUTH);
@@ -200,8 +203,8 @@ public class ProcessToPartition extends JDialog {
 		return centerTable.getProcessInformation();
 	}
 
-	public void deleteProcess(int id, ActionListener actionListener) {
-		centerTable.deleteProcess(id,actionListener);
+	public void deleteProcess(String name, ActionListener actionListener) {
+		centerTable.deleteProcess(name ,actionListener);
 	}
 
     public void addElementUniqueToTable(Object[] data, ActionListener actionListener) {
@@ -223,5 +226,4 @@ public class ProcessToPartition extends JDialog {
 		processSize.setText("");
 		isBlocked.setSelected(false);
 	}
-
 }

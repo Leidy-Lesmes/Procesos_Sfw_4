@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.EventObject;
 
-import javax.swing.Action;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -161,7 +160,6 @@ public class TablePartition extends JPanel {
 		createButton.setName(id);
 		createButton.addActionListener(actionListener);
 		Commands.C_ADD_PROCESS_TO_PARTICION.setName(id);
-		//System.out.println("nombre asignado"+Commands.C_ADD_PROCESS_TO_PARTICION.getName());
 		createButton.setActionCommand(""+id);
 		createButton.setBackground(Color.decode("#DF3A01"));
 		createButton.setForeground(Color.WHITE);
@@ -171,12 +169,12 @@ public class TablePartition extends JPanel {
 	}
 
 
-	public void deletePartition(int id, ActionListener actionListener) {
+	public void deletePartition(String name, ActionListener actionListener) {
 		listPartition= new ArrayList<>();
 		int rowInitial=dtmElements.getRowCount()+1;
 		for (int i = 0; i < rowInitial; i++) {
-			int idProcess=Integer.parseInt(""+dtmElements.getValueAt(i, 0));
-			if(idProcess==id){
+			String namePartition=""+dtmElements.getValueAt(i, 0);
+			if(namePartition.equals(name)){
 				dtmElements.removeRow(i);
 		      }
 			else {

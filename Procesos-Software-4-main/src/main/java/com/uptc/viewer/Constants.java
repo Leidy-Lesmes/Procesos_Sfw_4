@@ -34,7 +34,7 @@ public class Constants {
 	public static final String [] headersR8 = {"Proceso","Tamaño"};
 	public static final String [] headersPartition = {"Nombre Particion","Tamaño", "Agregar procesos"};
 	
-	public static final String [] PRICIPAL_HEADERS = {"Nombre del proceso", "Tiempo del proceso","Tamaño del proceso","Se bloquea","Eliminar" };
+	public static final String [] PRICIPAL_HEADERS = {"Nombre del proceso", "Tiempo del proceso","Tamaño del proceso","Se bloquea"};
 	public static final String[] headersPartitionList = {"Particion", "Proceso","Tamaño Proceso"};
 
 	

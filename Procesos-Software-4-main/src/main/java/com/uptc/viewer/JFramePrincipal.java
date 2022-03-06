@@ -129,12 +129,12 @@ public class JFramePrincipal extends JFrame {
 	
 	}
 
-    public void deleteProcess(int id,ActionListener actionListener) {
-		processToPartition.deleteProcess(id,actionListener);
+    public void deleteProcess(String name, ActionListener actionListener) {
+		processToPartition.deleteProcess(name ,actionListener);
     }
 
-	public void deletePartition(int id,ActionListener actionListener) {
-		headerPartition.deletePartition(id,actionListener);
+	public void deletePartition(String name,ActionListener actionListener) {
+		headerPartition.deletePartition(name ,actionListener);
     }
 
     public ArrayList<Object[]> getPartitionInformation() {

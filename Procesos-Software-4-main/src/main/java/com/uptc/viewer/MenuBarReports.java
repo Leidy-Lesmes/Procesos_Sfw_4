@@ -16,8 +16,8 @@ public class MenuBarReports extends JMenuBar {
 	private static final long serialVersionUID = 1L;
 
 	private JMenu report;
-	private JMenuItem report2, report3, report4, report5,report6, report10, report11,report12;
-	private JButton executeButton, closeApppButton;
+	private JMenuItem report3, report4, report5,report6, report10, report11,report12;
+	private JButton executeButton, deletePartition, closeApppButton;
 
 	public MenuBarReports(ActionListener actionListener) {
 		this.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -37,13 +37,6 @@ public class MenuBarReports extends JMenuBar {
 		report = new JMenu(Constants.TOP_PANEL_MENU_PRINCIPAL_REPORT);
 		report.setFont(Constants.FONT_MENUBAR);
 		report.setForeground(Color.BLACK);
-
-		report2 = new JMenuItem(Constants.TOP_T_MENUITEM_REPORT2);
-		report2.setFont(Constants.FONT_MENUBAR);
-		report2.addActionListener(actionListener);
-		report2.setActionCommand(Commands.C_REPORT_FOR_STATUS_CHANGE_PROCESS.toString());
-		report.add(report2);
-		report.addSeparator();
 
 		report3 = new JMenuItem(Constants.TOP_T_MENUITEM_REPORT3);
 		report3.setFont(Constants.FONT_MENUBAR);
@@ -97,6 +90,11 @@ public class MenuBarReports extends JMenuBar {
 		
 		this.add(report);
 		
+		deletePartition = new JButton();
+		deletePartition.addActionListener(actionListener);
+		deletePartition.setActionCommand(Commands.C_DELETTE_PARTITION.toString());
+		this.add(Utilities.button(deletePartition, new Dimension(100, 30), "Eliminar"));
+
 		closeApppButton = new JButton();
 		closeApppButton.addActionListener(actionListener);
 		closeApppButton.setActionCommand(Commands.C_CLOSE_APP.toString());

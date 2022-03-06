@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.lang.model.element.Name;
 import javax.swing.JOptionPane;
 
 import com.uptc.models.Partition;
@@ -147,6 +148,14 @@ public class ControllerApp implements ActionListener {
 		case C_CLOSE_DIALOG_ADD_PROCESS:
 			jPrincipal.processToPartitionVisibilityFalse(false);
 			break;
+
+		case C_DELETTE_PROCESS:
+			this.deleteProcess(e.getActionCommand());
+			break;
+		
+		case C_DELETTE_PARTITION:
+			this.deletePartition(e.getActionCommand());
+			break;
 		default:
 
 			break;
@@ -226,10 +235,23 @@ public class ControllerApp implements ActionListener {
 		return executeProcess.reportForStatusChange();
 	}
 
-	public void deleteProcess(int id) {
-		if(JOptionPane.showConfirmDialog(jPrincipal, "¿Seguro que desea borrar el proceso con Id: " + id +"?",
+	public void deleteProcess(String name) {
+		name = JOptionPane.showInputDialog("Ingresa el nombre del proceso");
+		JOptionPane.showMessageDialog(null, "Proceso " + name);
+
+		if(JOptionPane.showConfirmDialog(jPrincipal, "¿Seguro que desea borrar el proceso con nombre: " + name +"?",
 				"Pregunta", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-			jPrincipal.deleteProcess(id,this);
+			jPrincipal.deleteProcess(name, this);
+		}
+	}
+
+	public void deletePartition(String name) {
+		name = JOptionPane.showInputDialog("Ingresa el nombre de la particion");
+		JOptionPane.showMessageDialog(null, "Particion " + name);
+
+		if(JOptionPane.showConfirmDialog(jPrincipal, "¿Seguro que desea borrar la particion con nombre: " + name +"?",
+				"Pregunta", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+			jPrincipal.deletePartition(name , this);
 		}
 	}
 }
